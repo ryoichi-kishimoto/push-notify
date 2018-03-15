@@ -1,0 +1,8 @@
+.gitignore
+.idea/inspectionProfiles/
+.idea/markdown-navigator.xml
+.idea/markdown-navigator/
+.idea/modules.xml
+.idea/push-notify.iml
+.idea/workspace.xml
+.idea/vcs.xml
