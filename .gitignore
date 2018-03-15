@@ -6,3 +6,5 @@
 .idea/push-notify.iml
 .idea/workspace.xml
 .idea/vcs.xml
+node_modules/
+application-server-keys.json
