@@ -29,13 +29,6 @@ const main = () => {
   var btnRegister = document.querySelector("button#register-sw");
   btnRegister.addEventListener("click", ev => {
     ev.preventDefault();
-    // @see https://developer.mozilla.org/ja/docs/Web/API/ServiceWorker_API/Using_Service_Workers
-    window.navigator.serviceWorker.register("service-worker.js").then(registration => {
-      logger.line("Register OK:", registration);
-      _registration = registration;
-    }).catch(err => {
-      logger.line("Register Error:", err);
-    });
   });
 
   // Event handler for "Subscribe" button clicked.
@@ -75,13 +68,27 @@ window.onload = main
 new Vue({
   el: '#app',
   data: {
-
+    /**
+     * 登録済みサービスワーカー?
+     */
+    registration: null,
   },
 
   created() {
     /**
-     * サービスワーカー起動
+     * サービスワーカー登録
+     *
+     * @see https://developer.mozilla.org/ja/docs/Web/API/ServiceWorker_API/Using_Service_Workers
      */
+    if ('serviceWorker' in navigator) {
+      //
+      window.navigator.serviceWorker.register("service-worker.js").then(reg => {
+        console.log('Registration succeeded.');
+        this.registration = reg
+      }).catch(err => {
+        console.log("Register Error:", err);
+      });
+    }
 
   },
 
