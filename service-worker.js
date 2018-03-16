@@ -1,6 +1,9 @@
 /**
  * ページごとに登録済みのサービスワーカーがインストールされる
  */
+
+console.log('self', self)
+
 self.addEventListener('install', () => {
   console.log('[sw]', 'Your ServiceWorker is installed');
 });

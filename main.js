@@ -63,7 +63,7 @@ const main = () => {
   });
 }
 
-window.onload = main
+// window.onload = main
 
 new Vue({
   el: '#app',
