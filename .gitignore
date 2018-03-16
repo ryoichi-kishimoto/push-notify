@@ -7,4 +7,4 @@
 .idea/workspace.xml
 .idea/vcs.xml
 node_modules/
-application-server-keys.json
+src/application-server-keys.json

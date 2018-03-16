@@ -7,7 +7,7 @@
 */
 
 const fs = require('fs');
-const dest = 'application-server-keys.json';
+const dest = 'src/application-server-keys.json';
 
 if (fs.existsSync(dest)) {
   return console.log(`[genkey:ABORT] ${dest} file already exits.`);
