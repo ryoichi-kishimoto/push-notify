@@ -2,66 +2,33 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <style>
-    button {
-      display: block;
-      font-weight: bold;
-    }
-
-    pre {
-      background-color: #292c34;
-      color: #ddd;
-      font-family: monospace;
-      padding: 8px;
-      min-height: 200px;
-      overflow-x: scroll;
-    }
-  </style>
 </head>
 <body>
 <h1>push通知設定管理画面</h1>
-<div style="display:flex;" id="app">
-  <div style="padding-right:20px">
-    <p>
-      First, your JavaScript working on foreground must try to register ServiceWorker to browser.
-      <button id="register-sw">Register ServiceWorker</button>
-    </p>
-    <p>
-      Second, setup the ServiceWorker to subscribe remote push notification.
-      This action will provides you <a href="https://developer.mozilla.org/en-US/docs/Web/API/PushSubscription">`PushSubscription`</a>
-      model.
-      <button id="start-subscribe">Start Subscribe</button>
-    </p>
-    <p>
-      Now, you have three things.
-    <ol>
-      <li>
-        <a href="chrome://serviceworker-internals/" target="_blank">ServiceWorker</a>,
-        who has `endpoint` to publish and is subscribing that publishment.
-      </li>
-      <li>
-        <a href="" target="_blank">Your Server</a>,
-        who stored subscription models and is ready to publish any stuff to subscribers.
-      </li>
-      <li>
-        Borwser JavaScript (I am!), who will let the server trigger push notification.
-        E.g User mentions to others and so.
-      </li>
-    </ol>
-    It's time to trigger them.
-    <button id="send-push">Send Push</button>
-    </p>
+<div id="app">
+  <label>タイトル
+    <input name="title" type="text" v-model="title">
+  </label>
+
+  <label>メッセージ
+    <input name="message" type="text" v-model="message">
+  </label>
+
+  <!--<label>(TODO)通知予約-->
+    <!--<input name="datetime" type="datetime-local" v-model="message">-->
+  <!--</label>-->
+
+  <div>
+    <button @click.prevent="addNotification">登録</button>
   </div>
-  <div style="width:400px">
-    <pre id="console-output">&gt;</pre>
-  </div>
+
 </div>
 <footer>
-  <a href="https://github.com/ryoichi-kishimoto/push-notify">GitHub</a>
+  <a target="_blank" href="https://github.com/ryoichi-kishimoto/push-notify">GitHub</a>
 </footer>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.15/vue.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
-<script type="text/javascript" src="/admin.js"></script>
+<script type="text/javascript" src="admin.js"></script>
 </body>
 </html>
 

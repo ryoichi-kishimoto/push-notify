@@ -1,3 +1,19 @@
+/**
+ * ページごとに登録済みのサービスワーカーがインストールされる
+ *
+ * オフラインになるとこれが動く??
+ *
+ * 開発者ツールの application -> Service Workers タブで 登録されたサービスワーカーの情報が見れる。
+ */
+
+/**
+ * この self は ServiceWorkerGlobalScope オブジェクト.
+ *
+ * @see https://developer.mozilla.org/ja/docs/Web/API/ServiceWorkerGlobalScope/oninstall
+ */
+console.log('self', self)
+
+// ページごとに登録済みサービスワーカーがインストールされる
 self.addEventListener('install', () => {
   console.log('[sw]', 'Your ServiceWorker is installed');
 });

@@ -1,8 +1,12 @@
 import fs from "fs"
 import express from 'express'
+import bodyParser from 'body-parser'
 import webpush from "web-push"
+import cors from 'cors'
 
 const app = express()
+app.use(cors())
+app.use(bodyParser.json())
 
 const keys = require("../application-server-keys.json");
 
@@ -24,11 +28,6 @@ const subscribers = [
 // static
 app.use(express.static(`${__dirname}/public`))
 
-// ルーティング
-app.post('/register', (req, res, next) => {
-  console.log('registerd!!');
-  res()
-})
 
 /**
  * [サービスページ用]
@@ -38,16 +37,9 @@ app.post('/register', (req, res, next) => {
  * サーバはこの PushSubscription を購読者(subscribers)として保存しておく。
  */
 app.post('/register', (req, res) => {
-  // var body = [];
-  // req.on("data", chunk => body.push(chunk));
-  // req.on("end", () => {
-  //   body = JSON.parse(Buffer.concat(body).toString());
-  //   res.writeHead(200, {"Content-Type":"application/json"});
-  //   res.end(JSON.stringify({msg:`I've got the endpoint: ${body.endpoint}`}));
-  //   subscribers.push(body);
-  // });
-  console.log('registerd!!');
-  res()
+  console.log('req.body:', req.body);
+  subscribers.push(req.body);
+  res.send('register is succeed.')
 })
 
 /**
@@ -58,17 +50,31 @@ app.post('/register', (req, res) => {
  * @todo crontab 対応する.
  */
 app.post('/trigger', (req, res) => {
-  // const icon = `img/${Math.floor(Math.random() * 3)}.png`;
-  // const params = {
-  //   title: "You've got a push-notification!!",
-  //   msg:   `Hi, this is message from server. It"s ${new Date().toLocaleString()} now. You can send any message, e.g. notification icons and so`,
-  //   icon:  icon,
-  // };
-  // Promise.all(subscribers.map(subscription => {
-  //   return webpush.sendNotification(subscription, JSON.stringify(params), {});
-  // })).then(res => console.log(res)).catch(err => console.log('ERROR', err));
-  console.log('triggered!!');
-  res()
+  console.log('req.body:', req.body);
+  const { title, message } = req.body;
+
+  const params = {
+    title,
+    msg:   `${new Date().toLocaleString()} now.${message}`,
+    icon:  'icon.jpeg',
+  };
+
+  if (!subscribers.length) {
+    res.send('購読者がいません。')
+  }
+
+  // 購読者全員へpush通知する(pushサービスに通知を依頼する)
+  Promise.all(subscribers.map(subscription => {
+    return webpush.sendNotification(subscription, JSON.stringify(params), {});
+  }))
+  .then(ret => {
+    console.log(ret)
+    res.send('push succeed.')
+  })
+  .catch(err => {
+    console.log('ERROR', err)
+    res.status(500).send(err);
+  });
 })
 
 const port = process.env.PORT || 3000;

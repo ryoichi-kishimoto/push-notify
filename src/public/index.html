@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>サービスページ</title>
+  <meta charset="UTF-8">
+  <title>サービスページ</title>
 </head>
-<body style="font-size: 40px;">
-  <main>
-    <p>push通知の受信を許可してください!!!</p>
-    <img src="" alt="">
+<body>
+  <main id="app">
+    <h1>ここはエンドユーザがアクセスするサービスページです。</h1>
+    <p>push通知を受信するために以下の手順にしたがって操作してください。</p>
+    <ol>
+      <li>
+        <p>push通知の購読を開始する</p>
+        <button @click.prevent="startSubscribe">購読開始</button>
+      </li>
+
+      <li>
+        <p>ポップアップに出たpush通知の受信を許可する</p>
+        <img src="allow.png" alt="" width="300" style="border: 1px solid;">
+      </li>
+    </ol>
+
+    <p>管理画面は<a target="_blank" href="admin/">こちら</a></p>
   </main>
 </body>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.15/vue.js"></script>
-<script type="text/javascript" src="/main.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
 </html>
