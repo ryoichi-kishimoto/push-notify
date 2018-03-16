@@ -1,4 +1,3 @@
-import fs from "fs"
 import express from 'express'
 import bodyParser from 'body-parser'
 import webpush from "web-push"
@@ -13,21 +12,16 @@ const keys = require("../application-server-keys.json");
 // Initialize library with **YOUR** project keys and settings.
 // 送信者の情報を入れなきゃいけない。第一引数はメールアドレスかURLか。
 webpush.setVapidDetails(
-  process.env.SENDER_EMAIL || "mailto:ryoichi.kishimoto@luxa.co.jp",
+  process.env.SENDER_EMAIL || "mailto:ryoichi.kishimot@luxa.co.jp",
   keys.publicKey,
   keys.privateKey
 )
 
-// push 通知を送信先の購読者のリスト?
-const subscribers = [
-  // Here would be any subscribers endpoints,
-  // therefore this is gonna be a list of, so called, "target list".
-  // You should sotre this list to your database to make it persistent.
-]
+// push 通知を送信先の購読者のリスト
+const subscribers = []
 
 // static
 app.use(express.static(`${__dirname}/public`))
-
 
 /**
  * [サービスページ用]
@@ -37,7 +31,6 @@ app.use(express.static(`${__dirname}/public`))
  * サーバはこの PushSubscription を購読者(subscribers)として保存しておく。
  */
 app.post('/register', (req, res) => {
-  console.log('req.body:', req.body);
   subscribers.push(req.body);
   res.send('register is succeed.')
 })
@@ -50,13 +43,12 @@ app.post('/register', (req, res) => {
  * @todo crontab 対応する.
  */
 app.post('/trigger', (req, res) => {
-  console.log('req.body:', req.body);
   const { title, message } = req.body;
 
   const params = {
     title,
     msg:   `${new Date().toLocaleString()} now.${message}`,
-    icon:  'icon.jpeg',
+    icon:  'images/icon.jpeg',
   };
 
   if (!subscribers.length) {

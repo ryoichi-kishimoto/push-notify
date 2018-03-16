@@ -25,6 +25,6 @@ var applicationServerPublicKey = "${publicKey}";
 `;
 
 // ブラウザで実行されるjsファイルに、グローバル変数で public key を出力する。
-fs.appendFileSync('./main.js', embed);
+fs.appendFileSync('src/public/main.js', embed);
 
 return console.log('[genkey:DONE] server-keys for your project is created.');
