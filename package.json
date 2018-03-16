@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "genkey": "node src/genkey.js",
-    "dev": "babel-watch src/server.js"
+    "dev": "babel-watch src/server.js",
+    "start": "babel-watch src/server.js"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
