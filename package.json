@@ -5,7 +5,7 @@
   "scripts": {
     "genkey": "node src/genkey.js",
     "dev": "babel-watch src/server.js",
-    "start": "node src/server.js"
+    "start": "babel-node src/server.js"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
