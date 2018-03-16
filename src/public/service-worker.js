@@ -13,11 +13,16 @@
  */
 console.log('self', self)
 
-// ページごとに登録済みサービスワーカーがインストールされる
+/**
+ * ページごとに登録済みサービスワーカーがインストールされる
+ */
 self.addEventListener('install', () => {
   console.log('[sw]', 'Your ServiceWorker is installed');
 });
 
+/**
+ * pushサービスから通知がきたらこれが反応してデバイスに通知が表示される。
+ */
 self.addEventListener('push', ev => {
   console.log('[sw]', 'pushed!!', ev.data.json());
   const {title, msg, icon} = ev.data.json();
