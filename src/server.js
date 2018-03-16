@@ -2,12 +2,13 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import webpush from "web-push"
 import cors from 'cors'
+import path from 'path'
 
 const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
-const keys = require("../application-server-keys.json");
+const keys = require(path.join(__dirname, '../application-server-keys.json'));
 
 // Initialize library with **YOUR** project keys and settings.
 // 送信者の情報を入れなきゃいけない。第一引数はメールアドレスかURLか。
